@@ -61,7 +61,7 @@ public class ArraySorter<E extends Comparable<E>> {
 	 * @param array is the new array to sort.
 	 */
 	public void setArray(E[] array) {
-		throw new UnsupportedOperationException("method not yet implemented");		
+		this.array = array;		
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class ArraySorter<E extends Comparable<E>> {
 			bubbleSort(array); 
 			break;
 		case MERGESORT:
-			mergeSort(array); 
+			mergeSort(array,0,array.length-1); 
 			break;
 		case SELECTIONSORT:
 			selectionSort(array); 
@@ -120,8 +120,37 @@ public class ArraySorter<E extends Comparable<E>> {
 	 * @param <T> is the type of the elements in the array.
 	 * @param array is the array to be sorted.
 	 */
-	private static <T extends Comparable<T>> void mergeSort(T[] array) {
-		throw new UnsupportedOperationException("method not yet implemented");				
+	private static <T extends Comparable<T>> void merge(T[] array,int begin,int middle, int end){
+		int lengthl = middle - begin + 1 ;
+		int lengthr = end - middle;
+
+		T[] l = (T[])new Comparable[lengthl];
+		T[] r = (T[])new Comparable[lengthr];
+
+		int i = 0;
+		int j = 0;
+
+		int k = begin;
+		while(i<lengthl && j<lengthr){
+			if (l[i].compareTo(r[j]) > 0) {
+				array[k] = l[i];
+				i++;
+			}
+			else{
+				array[k] = r[j];
+				j++;
+			}
+			k++;
+		}
+
+	}
+
+
+	private static <T extends Comparable<T>> void mergeSort(T[] array,int begin, int end) {
+		int middle = (begin+end) / 2;
+		mergeSort(array, begin, middle);
+		mergeSort(array, middle+1, end);
+		merge(array,begin,middle,end);		
 	}
 
 	/**
@@ -129,8 +158,20 @@ public class ArraySorter<E extends Comparable<E>> {
 	 * @param <T> is the type of the elements in the array.
 	 * @param array is the array to be sorted.
 	 */
+
 	private static <T extends Comparable<T>> void bubbleSort(T[] array) {
-		throw new UnsupportedOperationException("method not yet implemented");				
+		Comparable aux ;
+		for (int i = 0; i < array.length-1 ; i++) {
+			if (isSorted(array) == false) {
+				for (int j = i; j < array.length-1 ; j++) {
+					if(array[j].compareTo(array[j+1]) == 1 ){
+						aux = array[j];
+						array[j] = array[j+1];
+						array[j+1] = array[j];
+					}											
+				}
+			}					
+		}			
 	}
 
 	/**
@@ -139,7 +180,18 @@ public class ArraySorter<E extends Comparable<E>> {
 	 * @param array is the array to be sorted.
 	 */
 	private static <T extends Comparable<T>> void insertionSort(T[] array) {
-		throw new UnsupportedOperationException("method not yet implemented");		
+		int n = array.length; 
+        T key;
+        for (int i = 1; i < n; ++i) { 
+         	key = array[i]; 
+            int j = i - 1; 
+
+            while (j >= 0 && array[j].compareTo(key) > 0) { 
+                array[j + 1] = array[j]; 
+                j = j - 1; 
+            } 
+            array[j + 1] = key; 
+        } 		
 	}
 
 	/**
@@ -149,7 +201,16 @@ public class ArraySorter<E extends Comparable<E>> {
 	 * @return true iff the array is sorted.
 	 */
 	public static <T extends Comparable<T>> boolean isSorted(T[] array) {
-		throw new UnsupportedOperationException("method not yet implemented");		
+		boolean sorted = true;
+		if (array.length == 1) {
+			return sorted;
+		}
+		for (int i = 1; i < array.length ; i++ ) {
+			if (array[i-1].compareTo(array[i]) > 0){
+				sorted = false;
+			}
+		}
+		return sorted;
 	}
 
 }

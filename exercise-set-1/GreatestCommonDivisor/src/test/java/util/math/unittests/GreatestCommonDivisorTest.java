@@ -59,6 +59,7 @@ public class GreatestCommonDivisorTest {
 		});
 	}
 
+
 	/**
 	 * Checks whether definition based algorithm correctly compute gcd.
 	 * This test uses differential testing, comparing with the output of

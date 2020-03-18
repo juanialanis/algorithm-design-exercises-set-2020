@@ -103,12 +103,13 @@ public class SelectionSortLargeArraysTest {
 	public void selectionSortSortsCorrectly() {
 
 		Integer[] clonedArray = array.clone();
+        Arrays.sort(clonedArray);
 
 		ArraySorter<Integer> sorter = new ArraySorter<Integer>(array, SortAlgorithm.SELECTIONSORT);
 
 		sorter.sort();
 
-		assertArrayEquals(Arrays.sort(clonedArray), array);
+		assertArrayEquals(clonedArray, array);
 	}
 
 }

@@ -213,4 +213,27 @@ public class ArraySorter<E extends Comparable<E>> {
 		return sorted;
 	}
 
+	private static int[] sieve(int n){
+   	
+    	boolean prime[] = new boolean[n + 1];
+    
+    	Arrays.fill(prime, true);
+    	for (int p = 2; p * p <= n; p++) {
+        	if (prime[p]) {
+            	for (int i = p * 2; i <= n; i += p) {
+                	prime[i] = false;
+            	}
+        	}
+    	}
+ 		int[] primeNumbers = new int[n];
+		for (int j = 0; j <= n ; j ++ ) {   	
+	    	for (int i = 2; i <= n; i++) {
+	        	if (prime[i]) {
+	            	primeNumbers[j] = i;
+	        	}
+	    	}
+	 	}    
+    	return primeNumbers;
+	}
+
 }
